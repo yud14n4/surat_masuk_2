@@ -30,9 +30,7 @@ class MasterMediaArsipController extends Controller
     	try {
 	    	$insert = [
 	    				'MediaArsip_Name' => $req->media_arsip_name,
-	    				'MediaArsip_Urutan' => $req->media_arsip_urutan,
-                        'MediaArsip_Quantity' => $req->media_arsip_quantity,
-                        'MediaArsip_Desc' => $req->media_arsip_desc,
+	    				'MediaArsip_Desc' => $req->media_arsip_desc,
 	    				'Input_Date' => date('Y-m-d'),
 	    				'Input_By' => auth::user()->id
 	    			];
@@ -63,8 +61,6 @@ class MasterMediaArsipController extends Controller
         try{
             $update = [
                         'MediaArsip_Name' => $req->media_arsip_name_u,
-                        'MediaArsip_Urutan' => $req->media_arsip_urutan_u,
-                        'MediaArsip_Quantity' => $req->media_arsip_quantity_u,
                         'MediaArsip_Desc' => $req->media_arsip_desc_u,
                         'Update_Date' => date('Y-m-d'),
                         'Update_By' => auth::user()->id

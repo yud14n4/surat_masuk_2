@@ -66,7 +66,8 @@
                           <td>{{$TableSuratMasuk->SuratM_Tujuan}}</td>
                           <td>{{$TableSuratMasuk->SuratM_Keterangan}}</td>
                           <td>{{$TableSuratMasuk->SuratM_PenerimaSurat}}</td>
-                          <td>{{$TableSuratMasuk->SuratM_KodeArsip}}</td>
+                          <td>{{$TableSuratMasuk->MediaArsip_Name}}</td>
+                          <td><a href="{{ url('/UploadFileArsip/'.$TableSuratMasuk->SuratM_FileArsip) }}" target="_blank">{{$TableSuratMasuk->SuratM_FileArsip}}</a></td>
                           <td>
                             <a href="{{ url('/edit-surat-masuk/'.$TableSuratMasuk->SuratM_ID) }}" class="btn btn-default btn-xs"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                             <a><i class="fa fa-recycle" aria-hidden="true" OnClick="DeleteSuratMasuk({{$TableSuratMasuk->SuratM_ID}})"></i></a>

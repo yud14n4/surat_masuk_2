@@ -86,6 +86,9 @@
     <script src="{{ asset('template/vendors/pdfmake/build/pdfmake.min.js') }}"></script>
     <script src="{{ asset('template/vendors/pdfmake/build/vfs_fonts.js') }}"></script>
     <!-- end js datatables -->
+    <!-- morris.js -->
+    <script src="{{ asset('template/vendors/raphael/raphael.min.js') }}"></script>
+    <script src="{{ asset('template/vendors/morris.js/morris.min.js') }}"></script>
 
     <!-- validator -->
     <script src="{{ asset('template/vendors/validator/validator.js') }}"></script>

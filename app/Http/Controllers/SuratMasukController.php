@@ -21,59 +21,105 @@ class SuratMasukController extends Controller
     	$GetDataSuratMasuk = DB::table('t_surat_masuk')
     							->leftjoin('m_index_surat', 'SuratM_IndexSuratID','=','Index_Surat_ID')
                                 ->leftjoin('m_jenis_surat', 'SuratM_JenisSuratID','=','Jenis_Surat_ID')
+                                ->leftjoin('m_media_arsip', 'SuratM_KodeArsip', '=', 'MediaArsip_ID')
     							->get();
+        // dd($GetDataSuratMasuk);
     	return view('transaksi.surat_masuk', compact('GetDataSuratMasuk'));
     }
 
     public function indexAdd()
     {
         $GetDataPenerima = DB::table('m_penerima')->get();
+        $GetSelectMediaArsip = DB::table('m_media_arsip')->get();
         $GetSelectIndexSurat = DB::table('m_index_surat')->get();
         $GetSelectJenisSurat = DB::table('m_jenis_surat')->get();
-        return view('transaksi.surat_masuk_add', compact('GetDataPenerima','GetSelectIndexSurat','GetSelectJenisSurat'));
+        return view('transaksi.surat_masuk_add', compact('GetDataPenerima','GetSelectMediaArsip','GetSelectIndexSurat','GetSelectJenisSurat'));
     }    
 
-    public function PostCustomer(Request $req)
+    public function PostSuratMasuk(Request $req)
     {
+        //upload file
+        $file_arsip     = $req->file('sm_file');
+        $name_file      = $file_arsip->getClientOriginalName();
+        $req->sm_file->move(public_path('UploadFileArsip'), $name_file);
+        
+        //proses insert database
         try {
             $insert = [
-                        'Customer_Name' => $req->customer_name,
-                        'Customer_NIP' => $req->customer_nip,
-                        'Customer_GolID' => $req->customer_golongan,
-                        'Input_Date' => date('Y-m-d'),
-                        'Input_By' => auth::user()->id
+                        'SuratM_InputDate'      => $req->sm_input_date,
+                        'SuratM_AsalSurat'      => $req->sm_asal_surat,
+                        'SuratM_NoSurat'        => $req->sm_no_surat,
+                        'SuratM_IndexSuratID'   => $req->sm_index_surat,
+                        'SuratM_DateSurat'      => $req->sm_tgl_surat,
+                        'SuratM_JenisSuratID'   => $req->sm_jenis_surat,
+                        'SuratM_Perihal'        => $req->sm_perihal,
+                        'SuratM_Tujuan'         => $req->sm_ditujukan,
+                        'SuratM_Keterangan'     => $req->sm_keterangan,
+                        // 'SuratM_PenerimaSurat'  => $req->sm_penerima,
+                        'SuratM_PenerimaSurat'  => 'Yudiana Dulu',
+                        'SuratM_KodeArsip'      => $req->sm_media_arsip,
+                        'SuratM_FileArsip'      => $name_file,
+                        'Input_Date'            => date('Y-m-d'),
+                        'Input_By'              => auth::user()->id
                     ];
-            DB::table('m_penerima')->insert($insert);
-            return redirect()->route('mCustomer')->with(['success' => 'Pesan Berhasil']);
+            DB::table('t_surat_masuk')->insert($insert);
+            return redirect()->route('SuratMasuk')->with(['success' => 'Pesan Berhasil']);
         } catch(Exception $exc) {
             abort(404, $exc->getMessage());
         }
         
     }
 
-    public function GetIdCustomer($idCust)
+    public function GetIdSuratMasuk($idSuratMasuk)
     {
-        $GetDataEditCust = DB::table('m_penerima')
-                            ->leftjoin('m_golongan', 'Customer_GolID','=','Golongan_ID')
-                            ->where('Customer_ID', $idCust)
-                            ->get();
-        $GetSelectGolongan = DB::table('m_golongan')->get();
-
-        return view('master.m_penerima_edit', compact('judul','GetDataEditCust','GetSelectGolongan'));
+        $GetDataSuratMasuk = DB::table('t_surat_masuk')
+                                ->leftjoin('m_index_surat', 'SuratM_IndexSuratID','=','Index_Surat_ID')
+                                ->leftjoin('m_jenis_surat', 'SuratM_JenisSuratID','=','Jenis_Surat_ID')
+                                ->leftjoin('m_media_arsip', 'SuratM_KodeArsip', '=', 'MediaArsip_ID')
+                                ->where('SuratM_ID', $idSuratMasuk)
+                                ->get();
+        $GetSelectIndexSurat = DB::table('m_index_surat')->get();
+        $GetSelectJenisSurat = DB::table('m_jenis_surat')->get();
+        $GetDataPenerima = DB::table('m_penerima')->get();
+        $GetSelectMediaArsip = DB::table('m_media_arsip')->get();
+        
+        return view('transaksi.surat_masuk_edit', compact('GetDataSuratMasuk','GetSelectIndexSurat','GetSelectJenisSurat','GetSelectMediaArsip','GetDataPenerima'));
     }
 
-    public function PostUpdateCustomer(Request $req)
+    public function PostUpdateSuratMasuk(Request $req)
     {
+        //upload file
+        if ($req->sm_file==''){
+
+            $name_file = $req->sm_file_old;
+
+        } else {
+
+            $file_arsip     = $req->file('sm_file');
+            $name_file      = $file_arsip->getClientOriginalName();
+            $req->sm_file->move(public_path('UploadFileArsip'), $name_file);
+        }
+        //proses update database
         try {
             $update = [
-                        'Customer_Name' => $req->customer_name_u,
-                        'Customer_NIP' => $req->customer_nip_u,
-                        'Customer_GolID' => $req->customer_golongan_u,
-                        'Update_Date' => date('Y-m-d'),
-                        'Update_By' => auth::user()->id
+                        'SuratM_InputDate'      => $req->sm_input_date_u,
+                        'SuratM_AsalSurat'      => $req->sm_asal_surat_u,
+                        'SuratM_NoSurat'        => $req->sm_no_surat_u,
+                        'SuratM_IndexSuratID'   => $req->sm_index_surat_u,
+                        'SuratM_DateSurat'      => $req->sm_tgl_surat_u,
+                        'SuratM_JenisSuratID'   => $req->sm_jenis_surat_u,
+                        'SuratM_Perihal'        => $req->sm_perihal_u,
+                        'SuratM_Tujuan'         => $req->sm_ditujukan_u,
+                        'SuratM_Keterangan'     => $req->sm_keterangan_u,
+                        // 'SuratM_PenerimaSurat'  => $req->sm_penerima,
+                        'SuratM_PenerimaSurat'  => 'Yudiana Dulu',
+                        'SuratM_KodeArsip'      => $req->sm_media_arsip_u,
+                        'SuratM_FileArsip'      => $name_file,
+                        'Update_Date'            => date('Y-m-d'),
+                        'Update_By'              => auth::user()->id
                     ];
-            DB::table('m_penerima')->where('Customer_ID', $req->customer_id_u)->update($update);
-            return redirect()->route('mCustomer')->with(['success' => 'Berhasil Di Update']);
+            DB::table('t_surat_masuk')->where('SuratM_ID', $req->sm_id_u)->update($update);
+            return redirect()->route('SuratMasuk')->with(['success' => 'Berhasil di Update']);
         } catch(Exception $exc) {
             abort(404, $exc->getMessage());
         }

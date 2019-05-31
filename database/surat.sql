@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Waktu pembuatan: 30 Bulan Mei 2019 pada 09.27
+-- Waktu pembuatan: 31 Bulan Mei 2019 pada 01.34
 -- Versi server: 5.7.24
 -- Versi PHP: 7.1.26
 
@@ -131,24 +131,23 @@ DROP TABLE IF EXISTS `m_media_arsip`;
 CREATE TABLE IF NOT EXISTS `m_media_arsip` (
   `MediaArsip_ID` int(6) NOT NULL AUTO_INCREMENT,
   `MediaArsip_Name` varchar(50) NOT NULL,
-  `MediaArsip_Urutan` int(5) NOT NULL,
-  `MediaArsip_Quantity` int(10) NOT NULL,
   `MediaArsip_Desc` text NOT NULL,
   `Input_Date` datetime NOT NULL,
   `Input_By` int(3) NOT NULL,
   `Update_Date` datetime DEFAULT NULL,
   `Update_By` int(3) DEFAULT NULL,
   PRIMARY KEY (`MediaArsip_ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `m_media_arsip`
 --
 
-INSERT INTO `m_media_arsip` (`MediaArsip_ID`, `MediaArsip_Name`, `MediaArsip_Urutan`, `MediaArsip_Quantity`, `MediaArsip_Desc`, `Input_Date`, `Input_By`, `Update_Date`, `Update_By`) VALUES
-(2, 'Rak', 1, 1000, 'Arsip untuk bagian rak', '2019-05-30 00:00:00', 1, '2019-05-30 00:00:00', 1),
-(3, 'Rak', 2, 1000, '-', '2019-05-30 00:00:00', 1, NULL, NULL),
-(4, 'Rak', 3, 1000, '-', '2019-05-30 00:00:00', 1, NULL, NULL);
+INSERT INTO `m_media_arsip` (`MediaArsip_ID`, `MediaArsip_Name`, `MediaArsip_Desc`, `Input_Date`, `Input_By`, `Update_Date`, `Update_By`) VALUES
+(5, 'Rak-0001', 'Rak urutan Nomor 1', '2019-05-30 00:00:00', 1, NULL, NULL),
+(6, 'Rak-0002', 'Rak urutan Nomor 2', '2019-05-30 00:00:00', 1, NULL, NULL),
+(7, 'Arsip-0001', 'Arsip Urutan Nomor 1', '2019-05-30 00:00:00', 1, '2019-05-30 00:00:00', 1),
+(8, 'Arsip-0002', 'Arsip Urutan Nomor 2', '2019-05-30 00:00:00', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -197,12 +196,22 @@ CREATE TABLE IF NOT EXISTS `t_surat_masuk` (
   `SuratM_Keterangan` text NOT NULL,
   `SuratM_PenerimaSurat` varchar(50) NOT NULL,
   `SuratM_KodeArsip` varchar(50) NOT NULL,
+  `SuratM_FileArsip` text NOT NULL,
   `Input_Date` datetime NOT NULL,
   `Input_By` int(2) NOT NULL,
   `Update_Date` datetime DEFAULT NULL,
   `Update_By` int(2) DEFAULT NULL,
   PRIMARY KEY (`SuratM_ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data untuk tabel `t_surat_masuk`
+--
+
+INSERT INTO `t_surat_masuk` (`SuratM_ID`, `SuratM_InputDate`, `SuratM_AsalSurat`, `SuratM_NoSurat`, `SuratM_IndexSuratID`, `SuratM_DateSurat`, `SuratM_JenisSuratID`, `SuratM_Perihal`, `SuratM_Tujuan`, `SuratM_Keterangan`, `SuratM_PenerimaSurat`, `SuratM_KodeArsip`, `SuratM_FileArsip`, `Input_Date`, `Input_By`, `Update_Date`, `Update_By`) VALUES
+(2, '2019-05-31', 'Mentri Agama', 'II/234/XII/19/0001', 2, '2019-05-30', 2, 'OK hal', 'Mentri Agama', 'Ok keterangan', 'Yudiana Dulu', '7', 'Manipulasi_Combobox_dan_Textbox_dengan_Ajax_JQuery_Achmatim.Net.pdf', '2019-05-30 00:00:00', 1, '2019-05-31 00:00:00', 1),
+(3, '2019-05-31', 'Mentri Agama', 'II/234/XII/19/0002', 1, '2019-05-30', 1, 'Mengundang', 'Teknik Sipiln Mentri Agama', 'OK', 'Yudiana Dulu', '5', 'und up buka Dikpa Karfi 2019.pdf', '2019-05-30 00:00:00', 1, '2019-05-31 00:00:00', 1),
+(4, '2019-05-30', 'Mentri Agama', 'II/234/XII/19/0003', 3, '2019-05-30', 2, '-', 'Teknik Sipiln Mentri Agama', 'ok', 'Yudiana Dulu', '7', 'WMS-DEV Report Release.pdf', '2019-05-30 00:00:00', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 

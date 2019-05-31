@@ -58,20 +58,6 @@
                                           </div>
                                         </div>
                                         <div class="item form-group">
-                                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Urutan Arsip <span class="required">*</span>
-                                          </label>
-                                          <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="name" class="form-control col-md-7 col-xs-12" name="media_arsip_urutan" required="required" type="number">
-                                          </div>
-                                        </div>
-                                        <div class="item form-group">
-                                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Space Media <span class="required">*</span>
-                                          </label>
-                                          <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="name" class="form-control col-md-7 col-xs-12" name="media_arsip_quantity" required="required" type="number">
-                                          </div>
-                                        </div>
-                                        <div class="item form-group">
                                           <label class="control-label col-md-3 col-sm-3 col-xs-12" for="media_arsip_desc">Description <span class="required">*</span>
                                           </label>
                                           <div class="col-md-6 col-sm-6 col-xs-12">
@@ -120,20 +106,6 @@
                                           </div>
                                         </div>
                                         <div class="item form-group">
-                                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Urutan Arsip <span class="required">*</span>
-                                          </label>
-                                          <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="media_arsip_urutan_u" class="form-control col-md-7 col-xs-12" name="media_arsip_urutan_u" required="required" type="number">
-                                          </div>
-                                        </div>
-                                        <div class="item form-group">
-                                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Space Media <span class="required">*</span>
-                                          </label>
-                                          <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="media_arsip_quantity_u" class="form-control col-md-7 col-xs-12" name="media_arsip_quantity_u" required="required" type="number">
-                                          </div>
-                                        </div>
-                                        <div class="item form-group">
                                           <label class="control-label col-md-3 col-sm-3 col-xs-12" for="media_arsip_desc_u">Description <span class="required">*</span>
                                           </label>
                                           <div class="col-md-6 col-sm-6 col-xs-12">
@@ -162,8 +134,6 @@
                       <thead>
                         <tr>
                           <th>Media Arsip Name</th>
-                          <th>Urutan Arsip</th>
-                          <th>Space Media</th>
                           <th>Desc Media</th>
                           <th>Action</th>
                         </tr>
@@ -172,8 +142,6 @@
                         @foreach ($GetDataMediaArsip as $TableMediaArsip)
                         <tr>
                           <td>{{$TableMediaArsip->MediaArsip_Name}}</td>
-                          <td>{{$TableMediaArsip->MediaArsip_Urutan}}</td>
-                          <td>{{$TableMediaArsip->MediaArsip_Quantity}}</td>
                           <td>{{$TableMediaArsip->MediaArsip_Desc}}</td>
                           <td>
                             <a><i class="fa fa-pencil" data-toggle="modal" data-target=".modal-edit-media-arsip" aria-hidden="true" OnClick="EditMediaArsip({{$TableMediaArsip->MediaArsip_ID}})"></i></a> | 
@@ -212,8 +180,6 @@
             // console.log(parse.MediaArsip[0].MediaArsip_ID);
             document.getElementById('media_arsip_id_u').value = parse.MediaArsip[0].MediaArsip_ID;
             document.getElementById('media_arsip_name_u').value = parse.MediaArsip[0].MediaArsip_Name;
-            document.getElementById('media_arsip_urutan_u').value = parse.MediaArsip[0].MediaArsip_Urutan;
-            document.getElementById('media_arsip_quantity_u').value = parse.MediaArsip[0].MediaArsip_Quantity;
             document.getElementById('media_arsip_desc_u').value = parse.MediaArsip[0].MediaArsip_Desc;
           },
           error: function(error) {
